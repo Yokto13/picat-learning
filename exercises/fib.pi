@@ -1,0 +1,12 @@
+table
+fib(0, F) => F = 0.
+fib(1, F) => F = 1.
+fib(N, F) =>
+  fib(N - 1, F1),
+  fib(N - 2, F2),
+  F = F1 + F2.
+
+main([N]) =>
+  N_int = to_integer(N),
+  fib(N_int, R),
+  println(R).

@@ -1,0 +1,10 @@
+depth(nil, R) => R = -1.
+depth(node(V, L, R), D) =>
+    depth(L, D1),
+    depth(R, D2),
+    D = max(D1, D2) + 1.
+
+main => 
+    N = parse_term("node(42, node(1, nil, nil), nil)"),
+    depth(N, D),
+    println(D).

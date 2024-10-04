@@ -1,0 +1,6 @@
+qsort([]) = [].
+qsort([H | T]) = qsort([E : E in T, E =< H]) ++ [H] ++ qsort([E : E in T, E > H]).
+
+main([Lstring]) =>
+  L = parse_term(Lstring),
+  println(qsort(L)).
