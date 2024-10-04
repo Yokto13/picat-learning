@@ -1,0 +1,12 @@
+transpose(M, T) =>
+    L1 = M.length,
+    L2 = M[1].length,
+    T = new_array(L2, L1),
+    foreach (I in 1..L1, J in 1..L2)
+        T[J, I] = M[I, J]
+    end.
+
+main =>
+    M = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}},
+    transpose(M, T),
+    println(T)

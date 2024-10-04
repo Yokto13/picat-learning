@@ -1,0 +1,32 @@
+%ABC
+%DEF
+%GHI
+
+import cp.
+
+main =>
+    N = 3,
+    Square = new_array(N, N),
+    Square :: 1..N*N,
+    all_different(Square.vars()),
+
+    K = N * (N * N + 1) // 2,
+
+    foreach(I in 1..N)
+        sum(Square[I, 1..N]) #= K,
+        sum(Square[1..N, I]) #= K,
+    end,
+    Diagonal1 = [Square[I, I] : I in 1..N],
+    Diagonal2 = [Square[I, N-I+1] : I in 1..N],
+    sum(Diagonal1) #= K,
+    sum(Diagonal2) #= K,
+
+    solve(Square),
+
+    foreach(I in 1..N)
+        foreach(J in 1..N)
+            printf("%3d ", Square[I,J])
+        end,
+        nl
+    end,
+    nl.
