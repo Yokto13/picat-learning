@@ -1,0 +1,16 @@
+import cp.
+
+chinese(X) =>
+    X :: 0..42000,
+    X mod 5 #= 3,
+    X mod 7 #= 2,
+    X mod 9 #= 4,
+    X mod 11 #= 10,
+    X mod 13 #= 1.
+
+main() =>
+    chinese(X),
+    solve_all(X) = Solutions,
+    foreach (Solution in Solutions)
+        println(Solution)
+    end.
