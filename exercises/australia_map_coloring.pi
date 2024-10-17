@@ -1,0 +1,61 @@
+import cp.
+
+color_map(Regions) =>
+    Regions = [WA, NT, SA, Q, NSW, V, T],
+
+    Regions :: 1..4,
+
+    Edges = [
+        {WA, NT},
+        {WA, SA},
+        {NT, SA},
+        {NT, Q},
+        {SA, Q},
+        {SA, NSW},
+        {SA, V},
+        {Q, NSW},
+        {Q, V}
+    ],
+
+    foreach(Edge in Edges)
+        Edge[1] #!= Edge[2],
+    end.
+
+precolor(Regions) =>
+    WA #=1,
+    NT #= 2,
+    SA #= 3.
+
+
+print_nice(Regions) =>
+    Red = 1,
+    Green = 2,
+    Blue = 3,
+    Yellow = 4,
+
+    RegionNames = ["WA", "NT", "SA", "Q", "NSW", "V", "T"],
+
+    foreach(I in 1..length(Regions))
+        Region = Regions[I],
+        RegionName = RegionNames[I],
+        print(RegionName),
+        print(" "),
+        if Region = Red then
+            print("Red "),
+        else if Region = Green then
+            print("Green "),
+        else if Region = Blue then
+            print("Blue "),
+        else if Region = Yellow then
+            print("Yellow "),
+        end,
+        % println(""),
+    end.
+
+main =>
+    color_map(Regions),
+    precolor(Regions),
+    solve(Regions),
+    print_nice(Regions).
+    
+    
