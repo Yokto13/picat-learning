@@ -1,0 +1,21 @@
+import cp.
+
+triples(N, T) =>
+    T = [A, B, C],
+    A :: 1..N,
+    B :: 1..N,
+    C :: 1..N,
+    A*A + B*B #= C*C,
+    A #<= B,
+    B #<= C.
+
+main([A, B]) =>
+    N = to_integer(B),
+    triples(N, T),
+    solve_all(T) = Solutions,
+    if A == "-c" then
+        println(length(Solutions)),
+    else
+        foreach (Solution in Solutions)
+            println(Solution),
+    end.
