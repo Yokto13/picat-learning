@@ -1,0 +1,47 @@
+% import sat.
+import cp.
+
+solve_langford(N, SecondModel) =>
+
+    % This is taken from https://mathworld.wolfram.com/LangfordsProblem.html
+    % Otherwise it takes forever on impossible solutions.
+    N mod 4 #= 0 #\/
+    N mod 4 #= 3,
+
+    Inds = new_array(2 * N),
+    Inds :: 1..2 * N,
+
+    SecondModel = new_array(2 * N),
+    SecondModel :: 1..N,
+
+    SecondModel[1] #> SecondModel[2 * N],
+
+    % chanelling
+    foreach(I in 1..N)
+        element(Inds[2 * I - 1], SecondModel, I),
+        element(Inds[2 * I], SecondModel, I),
+    end,
+
+    foreach(I in 1..N)
+        exactly(2, SecondModel, I),
+    end,
+
+    foreach(I in 1..N)
+        element(FirstOcc, SecondModel, I),
+        element(SecondOcc, SecondModel, I),
+        FirstOcc #< SecondOcc,
+        abs(FirstOcc - SecondOcc) - 1 #= I,
+    end,
+
+    all_different(Inds),
+    foreach(I in 1..N) 
+        Inds[2 * I - 1] #> Inds[2 * I],
+        Inds[2 * I - 1] - Inds[2 * I] - 1 #= I,
+    end,
+    solve([ff], Inds ++ SecondModel).
+
+
+main([N]) =>
+    println(N.to_int),
+    solve_langford(N.to_int, X),
+    println(X).
