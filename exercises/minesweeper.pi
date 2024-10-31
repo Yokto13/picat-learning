@@ -1,0 +1,29 @@
+import cp.
+
+minesweeper(BoardPartial, Board) =>
+    M = length(BoardPartial),
+    N = length(BoardPartial[1]),
+    Board = new_array(M, N),
+    Board :: 0..1,
+    foreach(I in 1..M, J in 1..N)
+        println(BoardPartial[I, J]),
+        if BoardPartial[I, J] != _ then
+            Board[I, J] = 0,
+            sum([Board[II, JJ] : II in 1..M, JJ in 1..N, abs(I - II) + abs(J - JJ) == 1]) #= BoardPartial[I, J],
+        end,
+    end,
+
+    solve(Board).
+
+
+main =>
+    BoardPartial = {
+        {_,_,2,_,3,_},
+        {2,_,_,_,_,_},
+        {_,_,2,4,_,3},
+        {1,_,3,4,_,_},
+        {_,_,_,_,_,3},
+        {_,3,_,3,_,_}
+    },
+    minesweeper(BoardPartial, Board),
+    println(Board).
