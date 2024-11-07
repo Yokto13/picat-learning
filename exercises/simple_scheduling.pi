@@ -1,0 +1,43 @@
+import cp.
+
+instance(NumPeople, Items, Duration, People) =>
+    NumPeople = 4,
+    Items = ["piano", "chair", "bed", "table", "couch", "cat"],
+    Duration = [45, 10, 25, 15, 30, 15],
+    People = [4, 1, 3, 2, 3, 1].
+
+% instance(NumPeople, Items, Duration, People) =>
+%     NumPeople = 4,
+%     Items = ["piano", "chair"],
+%     Duration = [45, 10],
+%     People = [4, 1].
+
+schedule(NumPeople, Items, Duration, People, TimeNeeded, PeopleAssignments, ProblemStartTimes, ProblemTimes) =>
+    MaxTime = sum(Duration),
+
+    ProblemTimes = new_array(Items.length),
+    ProblemTimes :: 0..MaxTime,
+
+    PeopleAssignments = new_array(MaxTime, NumPeople),
+    PeopleAssignments :: 0..Items.length,
+
+    ProblemStartTimes = new_array(Items.length),
+    ProblemStartTimes :: 0..MaxTime,
+
+    foreach(I in 1..Items.length)
+        ProblemTimes[I] - Duration[I] #>= 0,
+    end,
+    foreach(I in 1..Items.length)
+        ProblemTimes[I] - ProblemStartTimes[I] #= Duration[I],
+    end,
+
+    TimeNeeded #= max([ProblemTimes[I] : I in 1..Items.length]),
+    cumulative(ProblemStartTimes, Duration, People, NumPeople),
+    solve([$min(TimeNeeded)], ProblemTimes ++ ProblemStartTimes ++ PeopleAssignments).
+
+main =>
+    instance(NumPeople, Items, Duration, People),
+    schedule(NumPeople, Items, Duration, People, TimeNeeded, PeopleAssignments, ProblemStartTimes, ProblemTimes),
+    println(max(ProblemTimes)),
+    println(TimeNeeded),
+    println(ProblemTimes).
