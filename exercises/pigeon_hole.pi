@@ -1,0 +1,11 @@
+import cp.
+
+pigeon_hole(N, Pigeons) =>
+    Pigeons = new_array(N + 1),
+    Pigeons :: 1..N,
+    all_different(Pigeons).
+
+main([N]) =>
+    pigeon_hole(N.to_int, Pigeons),
+    % time(solve(Pigeons)), println(Pigeons).
+    time2(solve(Pigeons)), println(Pigeons).
