@@ -7,5 +7,5 @@ pigeon_hole(N, Pigeons) =>
 
 main([N]) =>
     pigeon_hole(N.to_int, Pigeons),
-    % time(solve(Pigeons)), println(Pigeons).
-    time2(solve(Pigeons)), println(Pigeons).
+    time(solve(Pigeons)), println(Pigeons).
+    % time2(solve(Pigeons)), println(Pigeons).
