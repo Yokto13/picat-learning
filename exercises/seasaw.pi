@@ -1,0 +1,21 @@
+import cp.
+
+main() =>
+    NumPeople = 30,
+    Length = 34,
+    Distance = 1,
+    Weights = [29, 28, 37, 23, 23, 14, 48, 44, 33, 28, 43, 45, 21, 35, 15, 16, 16, 32, 24, 24, 30, 19, 26, 46, 43, 28, 44, 28, 33, 29],
+    println(Weights),
+    seasaw(NumPeople, Weights, DistanceFromMiddle),
+    println(DistanceFromMiddle).
+
+seasaw(N, Weights, DistanceFromMiddle) =>
+    K = length(Weights),
+    DistanceFromMiddle = new_array(K),
+    DistanceFromMiddle :: -N//2..N//2,
+
+    scalar_product(DistanceFromMiddle, Weights, 0),
+    all_different(DistanceFromMiddle),
+
+    time2(solve(DistanceFromMiddle)).
+    % time2(solve([updown],DistanceFromMiddle)).
