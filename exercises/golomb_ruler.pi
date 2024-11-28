@@ -1,0 +1,42 @@
+import cp.
+
+main([N]) =>
+    golomb_ruler(N.to_int, SolSize),
+    println(SolSize).
+
+golomb_ruler(N, SolSize) =>
+    SolSize :: N..50,
+    if (N > 8) then
+        SolSize #> 34,
+    end,
+    % Ruler #= new_array(SolSize),
+    % Ruler :: 0..1,
+    println(N),
+    Positions = new_array(N),
+    println(N),
+    Positions :: 0..100,
+    Positions[1] #= 0,
+    Positions[N] #= SolSize,
+    foreach (I in 1..N)
+        Positions[I] #<= SolSize,
+    end,
+    if (N > 8) then
+        foreach (I in 9..N)
+            Positions[I] - Positions[1] #> 34,
+        end,
+    end,
+    if (N > 6) then
+        foreach (I in 7..N)
+            Positions[I] - Positions[1] #> 25,
+        end,
+    end,
+    foreach (I in 1..N - 1)
+        Positions[I] #< Positions[I + 1],
+    end,
+    all_different(Positions),
+    Distances #= [abs(Positions[J] - Positions[I]) : I in 1..N, J in I+1..N],
+    all_different(Distances),
+
+
+    time2(solve([$min(SolSize)], Distances)),
+    println(Positions).
