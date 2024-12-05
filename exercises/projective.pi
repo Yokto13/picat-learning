@@ -1,0 +1,58 @@
+import cp.
+
+main([Order]) =>
+    println(Order),
+    M = Order.to_int * Order.to_int + Order.to_int + 1,
+    println(M),
+    projective(Order.to_int, M, Lines),
+    print_lines(Lines).
+
+
+print_lines(Lines) =>
+    foreach(Line in Lines)
+        println(Line),
+    end.
+
+
+projective(N, M, Lines) =>
+    K = N + 1,
+    Lines = new_array(M, M),
+    Lines :: 0..1,
+
+    Lines[1, 1] #= 0,
+    Lines[M, 1] #= 1,
+
+    foreach(I in 1..M)
+        exactly(K, Lines[I], 1),
+    end,
+
+    foreach(LineIdx in 1..M-1)
+        lex_le(Lines[LineIdx], Lines[LineIdx+1]),
+    end,
+
+    foreach(Point in 1..M)
+        sum([Lines[LineIdx, Point] #= 1 : LineIdx in 1..M ]) #= K,
+    end,
+
+    foreach(Point1 in 1..M)
+        foreach(Point2 in Point1+1..M)
+            sum([Lines[LineIdx, Point1] * Lines[LineIdx, Point2] #= 1 : LineIdx in 1..M ]) #= 1,
+        end,
+    end,
+
+    foreach(LineIdx1 in 1..M)
+        foreach(LineIdx2 in LineIdx1+1..M)
+            sum([Lines[LineIdx1, Point] * Lines[LineIdx2, Point]: Point in 1..M ]) #= 1,
+        end,
+    end,
+
+    FourPoints = new_array(M),
+    FourPoints :: 0..1,
+    exactly(4, FourPoints, 1),
+    foreach(LineIdx in 1..M)
+        sum([Lines[LineIdx, Point] * FourPoints[Point] : Point in 1..M ]) #<= 2,
+    end,
+
+    println("solving"),
+
+    time2(solve([ff], Lines)).
